@@ -4,11 +4,15 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   entry: {
-    frontend: "./frontend/src/index.js",
+    frontend: "./frontend/src/index.tsx",
+  },
+  target: 'web',
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
   },
   output: {
     path: path.resolve("./frontend/static/frontend/"),
-    filename: "[name]-[fullhash].js",
+    filename: "main.js",
     publicPath: "static/frontend/",
   },
   plugins: [
@@ -21,9 +25,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ["babel-loader"],
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: '/node_modules/'
       },
       {
         test: /\.css$/,
